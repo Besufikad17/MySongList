@@ -7,5 +7,10 @@ export const Card = styled.div`
     border-radius: 5px;
     border-color: #759C61FF;
     border-style: solid;
+
+    &:hover {
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        border-style: none;
+    }
 `
 

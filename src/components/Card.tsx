@@ -1,4 +1,6 @@
+import { ActionSection } from "../styles/ActionSection";
 import { Artist } from "../styles/Artist";
+import { Danger, Primary } from "../styles/Buttons";
 import { Card } from "../styles/Card";
 import { Details } from "../styles/Details";
 import { Image } from "../styles/Image";
@@ -18,6 +20,14 @@ const Cards = (props: Props) => {
         <Title>{props.title}</Title>
         <Artist>{props.artist}</Artist>
       </Details>
+      <ActionSection>
+        <Primary>
+          Update
+        </Primary>
+        <Danger>
+          Delete
+        </Danger>
+      </ActionSection>
     </Card>
   );
 };
