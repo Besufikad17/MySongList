@@ -1,8 +1,19 @@
 import { Container } from "./styles/Container";
 import { Row } from "./styles/Row";
+import { Primary, Secondary } from "./styles/Buttons";
+import { GrAdd } from "react-icons/gr";
+import { useState } from "react";
+import { ActionSection } from "./styles/ActionSection";
 import Cards from "./components/Card";
+import MyModal from "./components/Modal";
 
 function App() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggle = () => {
+    setIsOpen(!isOpen);
+  };
+
   var lists = [
     {
       img_url:
@@ -40,6 +51,21 @@ function App() {
           <h1>No songs found</h1>
         ) : (
           <Row>{listItems} </Row>
+        )}
+        <br />
+
+        {isOpen ? (
+          <MyModal ClickHandler={toggle}>
+            <ActionSection>
+              <Primary>Submit</Primary>
+              <Secondary onClick={toggle}>Close</Secondary>
+            </ActionSection>
+          </MyModal>
+        ) : (
+          <Secondary onClick={toggle}>
+            <GrAdd />
+            Add song
+          </Secondary>
         )}
       </Container>
     </div>
