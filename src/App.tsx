@@ -14,6 +14,8 @@ function App() {
     setIsOpen(!isOpen);
   };
 
+  const data = {id: "", title:"", artist:"", url:""}
+
   var lists = [
     {
       img_url:
@@ -41,7 +43,7 @@ function App() {
     },
   ];
   var listItems = lists.map((l) => (
-    <Cards img_url={l.img_url} title={l.title} artist={l.artist} />
+    <Cards img_url={l.img_url} title={l.title} artist={l.artist} id="" />
   ));
 
   return (
@@ -55,7 +57,7 @@ function App() {
         <br />
 
         {isOpen ? (
-          <MyModal ClickHandler={toggle}>
+          <MyModal ClickHandler={toggle} data={data}>
             <ActionSection>
               <Primary>Submit</Primary>
               <Secondary onClick={toggle}>Close</Secondary>

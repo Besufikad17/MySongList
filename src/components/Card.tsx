@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ActionSection } from "../styles/ActionSection";
 import { Artist } from "../styles/Artist";
 import { Danger, Primary } from "../styles/Buttons";
@@ -5,14 +6,24 @@ import { Card } from "../styles/Card";
 import { Details } from "../styles/Details";
 import { Image } from "../styles/Image";
 import { Title } from "../styles/Title";
+import MyModal from "./Modal";
 
 type Props = {
-    img_url : string,
-    title: string,
-    artist: string
-}
+  id : string
+  img_url: string;
+  title: string;
+  artist: string;
+};
 
 const Cards = (props: Props) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggle = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const data = {"title": props.title, "url": props.img_url, "artist": props.artist, "id": props.id}
+
   return (
     <Card>
       <Image src={props.img_url} />
@@ -20,14 +31,19 @@ const Cards = (props: Props) => {
         <Title>{props.title}</Title>
         <Artist>{props.artist}</Artist>
       </Details>
-      <ActionSection>
-        <Primary>
-          Update
-        </Primary>
-        <Danger>
-          Delete
-        </Danger>
-      </ActionSection>
+      {isOpen ? (
+        <MyModal ClickHandler={toggle} data={data}>
+          <ActionSection>
+            <Primary>Update</Primary>
+            <Danger>Delete</Danger>
+          </ActionSection>
+        </MyModal>
+      ) : (
+        <ActionSection>
+          <Primary onClick={toggle}>Update</Primary>
+          <Danger>Delete</Danger>
+        </ActionSection>
+      )}
     </Card>
   );
 };
