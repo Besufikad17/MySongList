@@ -1,0 +1,28 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.cards-row2 {
+    display: grid;
+    grid-template-columns: repeat(2, 450px);
+    grid-auto-rows: auto;
+    grid-gap: 5px;
+}
+
+.card {
+    width: 250px;
+    height: 320px;
+    background-color: rgb(117, 156, 97);
+    padding: 20px;
+    color: white;
+    text-align: center;
+    margin-right: 48px;
+    border-radius: 5px;
+}
+
+.details {
+    padding-left: 20px;
+}
+
