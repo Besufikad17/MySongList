@@ -1,13 +1,11 @@
 import styled from "styled-components";
 
 export const Card = styled.div`
-    width: 250px;
-    height: 320px;
-    background-color: rgb(117, 156, 97);
-    padding: 20px;
-    color: white;
-    text-align: center;
-    margin-right: 48px;
+    background-color: white;
+    text-align: left;
+    border-width: 1px;
     border-radius: 5px;
+    border-color: #759C61FF;
+    border-style: solid;
 `
 

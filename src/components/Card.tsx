@@ -1,21 +1,24 @@
+import { Artist } from "../styles/Artist";
+import { Card } from "../styles/Card";
+import { Details } from "../styles/Details";
+import { Image } from "../styles/Image";
+import { Title } from "../styles/Title";
+
 type Props = {
     img_url : string,
     title: string,
-    artist: string,
-    release_date: string,
-
+    artist: string
 }
 
 const Cards = (props: Props) => {
   return (
-    <div className="card">
-      <img src={props.img_url} />
-      <div className="details">
-        <h1>{props.title}</h1>
-        <h1>{props.artist}</h1>
-        <h1>{props.release_date}</h1>
-      </div>
-    </div>
+    <Card>
+      <Image src={props.img_url} />
+      <Details>
+        <Title>{props.title}</Title>
+        <Artist>{props.artist}</Artist>
+      </Details>
+    </Card>
   );
 };
 
