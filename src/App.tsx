@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { ActionSection } from "./styles/ActionSection";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "./store";
-import { getSongFetch } from "./actions";
 import { ISong } from "./utils/types";
 import Cards from "./components/Card";
 import MyModal from "./components/Modal";
