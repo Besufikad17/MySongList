@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from '@emotion/styled'
 
 export const Primary = styled.button`
     background-color: #6495ED;

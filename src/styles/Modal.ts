@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from '@emotion/styled'
 
 export const BG = styled.div`
   /* background-color: rgba(0, 0, 0, 0.2); */

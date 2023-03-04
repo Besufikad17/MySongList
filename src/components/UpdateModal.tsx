@@ -10,30 +10,36 @@ import { Input } from "../styles/Form";
 import { Header } from "../styles/Title";
 import { Container } from "../styles/Image";
 import { useDispatch } from "react-redux";
-import { add_song_requested } from "../slices/songSlice";
+import { update_song_requested } from "../slices/songSlice";
 import axios from "axios";
 
 interface Props {
   ClickHandler: () => void;
   children: ReactNode;
+  data: {
+    id: string;
+    img_url: string;
+    title: string;
+    artist: string;
+    flag: string;
+  };
 }
 
 const MyModal: FC<Props> = (props: Props) => {
   const dispatch = useDispatch();
 
-  const [title, setTitle] = useState("");
-  const [artist, setArtist] = useState("");
+  const [title, setTitle] = useState(props.data.title);
+  const [artist, setArtist] = useState(props.data.artist);
   const [img, setImg] = useState(null) as any;
 
-
-   const upload = (callback: (u : string) => void ) => {
-
-    const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME;
-    const CLOUDINARY_UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
-    
+  const upload = (callback: (u: string) => void) => {
     if (img === null) {
-     alert("Please upload img!!")
+      alert("Please upload img!!")
     } else {
+
+      const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME;
+      const CLOUDINARY_UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
+
       var bodyFormData = new FormData();
       bodyFormData.append("file", img ? img : null);
       bodyFormData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
@@ -46,22 +52,22 @@ const MyModal: FC<Props> = (props: Props) => {
         }
       })
     }
-  }
+  };
 
-  const dispatchAdd = (url: string) => {
-    dispatch(add_song_requested({
+  const dispatchUpdate = (url: string) => {
+    dispatch(update_song_requested({
+      _id: props.data.id,
       url,
       title,
       artist
     }))
-    props.ClickHandler();
-  }
+    window.location.reload();
+  };
 
-  const submit =  (e: MouseEvent<HTMLButtonElement>) : void => {
+  const submit = (e: MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault();
-    upload(dispatchAdd);
-  }
-
+    upload(dispatchUpdate);
+  };
 
   return (
     <BG>
@@ -71,7 +77,9 @@ const MyModal: FC<Props> = (props: Props) => {
             <Header>Add a song</Header>
             <Container
               src={
-                 img
+                props.data
+                  ? props.data.img_url
+                  : img
                   ? URL.createObjectURL(img)
                   : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcPZLAhSInzWQx4vk1i_-8OiuEVEUraqTCCyvZvU3ShA&s"
               }
@@ -82,7 +90,7 @@ const MyModal: FC<Props> = (props: Props) => {
                 name="img"
                 type="file"
                 onChange={(e) => {
-                  setImg(e.target.files ? e.target.files[0] : null)
+                  setImg(e.target.files ? e.target.files[0] : null);
                 }}
               />
               <Input
@@ -90,18 +98,18 @@ const MyModal: FC<Props> = (props: Props) => {
                 type="text"
                 placeholder="title"
                 value={title}
-                onChange={e => setTitle(e.target.value)}
+                onChange={(e) => setTitle(e.target.value)}
               />
               <Input
                 name="artist"
                 type="text"
                 placeholder="artist"
                 value={artist}
-                onChange={e => setArtist(e.target.value)}
+                onChange={(e) => setArtist(e.target.value)}
               />
-              
+
               <ActionSection>
-               <Secondary onClick={submit}>Submit</Secondary>
+                <Secondary onClick={submit}>Submit</Secondary>
                 <Danger onClick={props.ClickHandler}>close</Danger>
               </ActionSection>
             </Form>

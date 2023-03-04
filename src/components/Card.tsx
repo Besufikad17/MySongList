@@ -6,7 +6,9 @@ import { Card } from "../styles/Card";
 import { Details } from "../styles/Details";
 import { Image } from "../styles/Image";
 import { Title } from "../styles/Title";
-import MyModal from "./Modal";
+import { useDispatch } from "react-redux";
+import MyModal from "./UpdateModal";
+import { delete_song_requested } from "../slices/songSlice";
 
 type Props = {
   id : string
@@ -17,12 +19,16 @@ type Props = {
 
 const Cards = (props: Props) => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const [data, setData] = useState({id: props.id, title: props.title, artist: props.artist, img_url: props.img_url, flag: "update"});
+  const dispatch = useDispatch();
   const toggle = () => {
     setIsOpen(!isOpen);
   };
 
-  const data = {"title": props.title, "url": props.img_url, "artist": props.artist, "id": props.id}
+  const deleteSong = () => {
+    dispatch(delete_song_requested({_id: props.id, title: props.title, artist: props.artist, url: props.img_url}));  
+    window.location.reload();
+  }
 
   return (
     <Card>
@@ -41,7 +47,7 @@ const Cards = (props: Props) => {
       ) : (
         <ActionSection>
           <Primary onClick={toggle}>Update</Primary>
-          <Danger>Delete</Danger>
+          <Danger onClick={deleteSong}>Delete</Danger>
         </ActionSection>
       )}
     </Card>
